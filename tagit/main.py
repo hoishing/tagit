@@ -1,4 +1,4 @@
-from xml.dom.minidom import Document, parseString
+from xml.dom.minidom import Document
 
 
 def tag(
@@ -61,6 +61,8 @@ def normalize(kwargs: dict[str, str]) -> list[str]:
 
     output = []
     for key, val in kwargs.items():
+        if val is None:
+            continue
 
         if key in ("class_", "for_"):
             key = key.removesuffix("_")
@@ -81,12 +83,6 @@ def parse_content(item: str | list) -> str:
     if isinstance(item, list):
         return "".join(parse_content(subitem) for subitem in item)
     return str(item)
-
-
-def prettify(content: str, indent="    ") -> str:
-    """prettify the str with indentation"""
-    dom = parseString(content)
-    return dom.childNodes[0].toprettyxml(indent=indent)
 
 
 def comment(comment: str) -> str:

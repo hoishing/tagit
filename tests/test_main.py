@@ -1,4 +1,4 @@
-from tagit import tag, div, ul, li, prettify, comment, doctype, input_, label
+from tagit import tag, div, ul, li, comment, doctype, input_, label
 from textwrap import dedent
 
 
@@ -11,6 +11,7 @@ def test_none_content():
     assert tag("a") == "<a />"
     assert tag("a", None) == "<a />"
     assert div() == "<div />"
+    assert div(id="yo") == '<div id="yo" />'
     assert div(None) == "<div />"
 
 
@@ -22,6 +23,11 @@ def test_empty_string_content():
 def test_boolean_attr():
     assert tag("a", "b", "c") == "<a c>b</a>"
     assert tag("a", "b", "c", yo="", id="e") == '<a c yo id="e">b</a>'
+
+
+def test_omit_none_attr():
+    assert tag("a", "b", yo=None) == "<a>b</a>"
+    assert tag("a", "b", yo="") == "<a yo>b</a>"
 
 
 def test_underscore_attr():
@@ -41,18 +47,6 @@ def test_nested_content():
         div(["hello", ul([li("yo"), li("yo", id="main")])])
         == '<div>hello<ul><li>yo</li><li id="main">yo</li></ul></div>'
     )
-
-
-def test_prettify():
-    output = dedent(
-        """\
-        <ul>
-            <li>yo</li>
-            <li id="main">yo</li>
-        </ul>
-        """
-    )
-    assert prettify(ul([li("yo"), li("yo", id="main")])) == output
 
 
 def test_comment():

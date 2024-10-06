@@ -6,7 +6,7 @@ Modules exported by this package:
 - `gen_elements`: generate `elements.py`
 """
 
-from tagit.main import tag, comment, doctype, prettify
+from tagit.main import tag, comment, doctype
 from tagit.elements import *
 from tagit.gen_elements import Element
 

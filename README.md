@@ -8,9 +8,9 @@
 
 - all elements output are pure string, simple and easy to manipulate
 - only functions are exported, no classes or objects
-- all html and svg elements are exported as functions
-- custom element creation
-- prettify elements to human readable format
+- all standard html and svg elements are exported as functions
+- create nested child elements with list of strings or elements
+- able to create custom elements
 - create value-less(boolean) attributes with empty string or positional argument
     - handy for using with [UnoCSS] attributify mode
 
@@ -87,14 +87,7 @@ tag("MyElement", tag_content="foo", props="bar")
 # <MyElement props="bar">foo</MyElement>
 ```
 
-- prettify elements to human readable format
-
-```python
-html_str = prettify(div(img(src='url'), class_='bar'))
-# <div class="bar"><img src="url"/></div>
-```
-
-- more examples available at [demo notebook] and [tests] package
+- more examples available at [demo.py] file and the [tests] package
 
 ## Motivation
 
@@ -132,7 +125,7 @@ Open a [github issue] or ping me on [X ![x-icon]][X]
 [black-url]: https://github.com/psf/black
 [ci-badge]: https://github.com/hoishing/tagit/actions/workflows/ci.yml/badge.svg
 [ci-url]: https://github.com/hoishing/tagit/actions/workflows/ci.yml
-[demo notebook]: https://github.com/hoishing/tagit/blob/main/demo.ipynb
+[demo.py]: https://github.com/hoishing/tagit/blob/main/demo.py
 [github issue]: https://github.com/hoishing/tagit/issues
 [MIT-badge]: https://img.shields.io/github/license/hoishing/tagit
 [MIT-url]: https://opensource.org/licenses/MIT

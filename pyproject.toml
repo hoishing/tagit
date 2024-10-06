@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "tagit"
-version = "0.6.0"
+version = "0.6.1"
 description = "simple and pythonic way to write html/svg tags"
 authors = ["Kelvin Ng <hoishing@gmail.com>"]
 readme = "README.md"
@@ -26,4 +26,5 @@ optional = true
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"
+requests = "*"
 toml = "*"
