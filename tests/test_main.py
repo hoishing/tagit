@@ -1,5 +1,4 @@
 from tagit import tag, div, ul, li, comment, doctype, input_, label
-from textwrap import dedent
 
 
 def test_tag():
@@ -22,17 +21,17 @@ def test_empty_string_content():
 
 def test_boolean_attr():
     assert tag("a", "b", "c") == "<a c>b</a>"
-    assert tag("a", "b", "c", yo="", id="e") == '<a c yo id="e">b</a>'
+    assert tag("a", "b", "c", yo="", id="e") == '<a c yo="" id="e">b</a>'
 
 
 def test_omit_none_attr():
     assert tag("a", "b", yo=None) == "<a>b</a>"
-    assert tag("a", "b", yo="") == "<a yo>b</a>"
+    assert tag("a", "b", "ya", yo="") == '<a ya yo="">b</a>'
 
 
 def test_underscore_attr():
     assert tag("a", "b", class_="c") == '<a class="c">b</a>'
-    assert tag("a", del_="c", hi_="hi", map_a="") == '<a del-="c" hi-="hi" map-a />'
+    assert tag("a", del_="c", hi_="hi", map_a="") == '<a del-="c" hi-="hi" map-a="" />'
     assert (
         label("May", for_="d")
         + input_(None, "checked", type="radio", name="username", id="d")

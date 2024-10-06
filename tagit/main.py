@@ -17,31 +17,12 @@ def tag(
             Also useful for UnoCSS attributify mode.
         **kwargs (str): Key-value pairs of HTML attributes.
             - If value is a string, assigns `key="value"`.
-            - If key ends with underscore (e.g., 'class_', 'for_'), the underscore is removed.
-            - If value is an empty string, assigns a value-less attribute (e.g., 'defer', 'selected').
+            - attribute with value None will be ignored.
             - Underscores in keys are replaced with hyphens.
+            - key for `class` and `for` are python keywords, so use `class_` and `for_` instead.
 
     Returns:
         str: An HTML/SVG element string with the specified tag and attributes.
-
-    Examples:
-        >>> tag('div')
-        '<div />'
-
-        >>> tag('div', 'Hello', id='greeting', class_='text-bold')
-        '<div id="greeting" class="text-bold">Hello</div>'
-
-        >>> tag('input', type='text', required='')
-        '<input type="text" required />'
-
-        >>> tag('ul', [tag('li', 'Item 1'), tag('li', 'Item 2')])
-        '<ul><li>Item 1</li><li>Item 2</li></ul>'
-
-        >>> tag('button', 'Click me', 'disabled', class_='btn')
-        '<button disabled class="btn">Click me</button>'
-
-        >>> tag('div', 'Content', 'data-custom', id='example', aria_hidden='true')
-        '<div data-custom id="example" aria-hidden="true">Content</div>'
     """
 
     unique_args = sorted(map(str, set(args))) if args else []
@@ -68,11 +49,6 @@ def normalize(kwargs: dict[str, str]) -> list[str]:
             key = key.removesuffix("_")
 
         key = key.replace("_", "-")
-
-        if val == "":
-            output.append(key)
-            continue
-
         output.append(f'{key}="{val}"')
 
     return output

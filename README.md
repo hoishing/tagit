@@ -2,32 +2,49 @@
 
 [![ci-badge]][ci-url] [![pypi-badge]][pypi-url] [![MIT-badge]][MIT-url] [![black-badge]][black-url]
 
-> simple and pythonic way to write html/svg tags
+> HTML/SVG tag generator for minimalist
 
 ## Key Features
 
 - all elements output are pure string, simple and easy to manipulate
-- only functions are exported, no classes or objects
-- all standard html and svg elements are exported as functions
-- create nested child elements with list of strings or elements
+- no classes or objects, only functions
+- all standard html and svg elements are included
+- create nested child elements with list of strings and elements
 - able to create custom elements
-- create value-less(boolean) attributes with empty string or positional argument
+- create value-less(boolean) attributes with positional argument
     - handy for using with [UnoCSS] attributify mode
-
-## Installation
-
-`pip install tagit`
+- pure python, no external dependencies
+- high test coverage
 
 ## Quick Start
 
-- import common html elements
+- installation: `pip install tagit`
+- basic signature
+    - `element(tag_content: str | list | None = None, *args, **kwargs) -> str`
 
 ```python
-# all html/svg elements are available as functions
-from tagit import div
+# common elements
+from tagit import div, img, p, ul, li, label, input_,
 
-div('hi', id='foo')
-# <div id="foo" class="bar">hi</div>
+# empty tag
+print(div())
+# <div />
+
+# None content is ignored
+print(div(None))
+# <div />
+
+# empty string content creates closing tag
+print(div(""))
+# <div></div>
+
+# tag as content
+print(div(img(src="url"), id="bar"))  
+# <div id="bar"><img src="url"/></div>
+
+# content mix with strings and tags
+print(div(["foo", img(src="url"), "bar")])
+# <div>foo<img src="url"/>bar</div>
 ```
 
 - use trailing underscore to work around python keyword and built-in functions
@@ -41,26 +58,33 @@ div('hi', id='foo')
     - `object_` -> `object`
 
 ```python
-from tagit import label, input_
+print(label("foo", for_="bar"))
+# <label for="bar">foo</label>
 
-label('username', for_='username') + input_(type="text", id="username", class_="bar")
-# <label for="username">username</label><input type="text" id="username" class="bar"/>
+print(input_(None, class_="foo", name="bar", type="checkbox", value="baz"))
+# <input name="bar" type="checkbox" value="baz"/>
 ```
 
-- value-less(boolean) attributes. eg. `checked`, `disabled`, `selected`
-- to denote value-less attribute:  
-    - use empty string, eg. `checked=""`
-    - use positional argument
+- position args -> value-less attribute.
+    - boolean attribute: eg. `checked`, `disabled`, `selected`
+    - assign tailwind classes with [UnoCSS] attributify mode
 
 ```python
-div(img(src='url'), class_='bar', checked="")
-# <div class="bar" checked><img src="url"/></div>
+print(div("foo", "clear-both", "m-2", "rounded", id="baz"))
+# <div clear-both m-2 rounded id="baz">foo</div>
+```
 
-input_(None, 'disabled', type='text')
-# <input disabled type="text"/>
+- keyword argument with value None is ignored
+
+```python
+tag = div(None, "m-2", "rounded", id="baz", style=None) 
+print(tag)  
+# <div m-2 rounded id="baz" />
 ```
 
 - create custom element
+- signature:
+    - `tag(tag_name: str, tag_content: str | list | None = None, *args, **kwargs) -> str`
 
 ```python
 from tagit import tag
@@ -72,7 +96,7 @@ tag('div', 'Hello', id='greeting', class_='text-bold')
 # <div id="greeting" class="text-bold">Hello</div>
 
 tag('input', type='text', required='')
-# <input type="text" required />'
+# <input type="text" required="" />'
 
 tag('ul', [tag('li', 'Item 1'), tag('li', 'Item 2')])
 # <ul><li>Item 1</li><li>Item 2</li></ul>
@@ -87,7 +111,8 @@ tag("MyElement", tag_content="foo", props="bar")
 # <MyElement props="bar">foo</MyElement>
 ```
 
-- more examples available at [demo.py] file and the [tests] package
+- see [demo.py] for a full demo
+- more examples could be found in [tests] package
 
 ## Motivation
 
@@ -119,12 +144,15 @@ It provides full intellisense, type checking, and all language features from the
 
 ## Need Help?
 
-Open a [github issue] or ping me on [X ![x-icon]][X]
+- [github issue]
+- [x.com posts]
+- [contact the author]
 
 [black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black-url]: https://github.com/psf/black
 [ci-badge]: https://github.com/hoishing/tagit/actions/workflows/ci.yml/badge.svg
 [ci-url]: https://github.com/hoishing/tagit/actions/workflows/ci.yml
+[contact the author]: https://hoishing.github.io
 [demo.py]: https://github.com/hoishing/tagit/blob/main/demo.py
 [github issue]: https://github.com/hoishing/tagit/issues
 [MIT-badge]: https://img.shields.io/github/license/hoishing/tagit
@@ -133,5 +161,4 @@ Open a [github issue] or ping me on [X ![x-icon]][X]
 [pypi-url]: https://pypi.org/project/tagit/
 [tests]: https://github.com/hoishing/tagit/blob/main/tests/test_main.py
 [UnoCSS]: https://github.com/unocss/unocss
-[x-icon]: https://api.iconify.design/logos/twitter.svg?width=20
-[X]: https://x.com/hoishing
+[x.com posts]: https://x.com/hoishing

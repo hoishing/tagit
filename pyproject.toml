@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "tagit"
-version = "0.6.1"
-description = "simple and pythonic way to write html/svg tags"
+version = "0.6.2"
+description = "HTML/SVG tag generator for minimalist"
 authors = ["Kelvin Ng <hoishing@gmail.com>"]
 readme = "README.md"
 license = "MIT"
