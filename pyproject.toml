@@ -1,0 +1,29 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "tagit"
+version = "0.6.0"
+description = "simple and pythonic way to write html/svg tags"
+authors = ["Kelvin Ng <hoishing@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/hoishing/tagit"
+keywords = ["template", "html", "svg"]
+classifiers = [
+  "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+  "Intended Audience :: Developers",
+  "Development Status :: 4 - Beta",
+]
+packages = [{ include = "tagit", from = "." }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+toml = "*"
