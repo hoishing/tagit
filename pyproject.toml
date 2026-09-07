@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "tagit"
-version = "0.6.2"
+version = "0.6.3"
 description = "HTML/SVG tag generator for minimalist"
 authors = ["Kelvin Ng <hoishing@gmail.com>"]
 readme = "README.md"
